@@ -1,0 +1,131 @@
+@import "tailwindcss";
+@config "./tailwind.config.js";
+
+@theme {
+  --animate-fade-slide-in-right: fade-slide-in-right 250ms ease-out forwards;
+  --animate-fade-slide-in-left: fade-slide-in-left 250ms ease-out forwards;
+  --animate-zoom-in: zoom-in 250ms ease-out forwards;
+  --animate-zoom-out: zoom-out 250ms ease-out forwards;
+  --animate-fade-in: fade-in 250ms ease-out forwards;
+  --animate-fade-out: fade-out 250ms ease-out forwards;
+  --animate-fade-slide-in-down: fade-slide-in-down 300ms ease-out forwards;
+}
+
+@keyframes fade-slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes zoom-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fade-slide-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  min-height: 100dvh;
+  background-color: #000000;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  background-color: transparent;
+  color: #ffffff;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+.fixed-background {
+  position: fixed;
+  top: -60px;
+  left: 0;
+  right: 0;
+  bottom: -60px;
+  width: 100vw;
+  width: 100dvw;
+  height: calc(100dvh + 120px);
+  z-index: -10;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fixed-background::before,
+.fixed-background::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.fixed-background::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.fixed-background::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}

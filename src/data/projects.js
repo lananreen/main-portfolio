@@ -1,0 +1,61 @@
+export const PROJECTS = [
+  {
+    id: "project-1",
+    name: "Kumon: Attendance Monitoring System",
+    buttonLabel: "Kumon",
+    url: "https://kumon.curatelab.ph/",
+    images: [
+      { src: "/kumon-1.png", alt: "Screenshot 1" },
+      { src: "/kumon-2.png", alt: "Screenshot 2" },
+      { src: "/kumon-3.png", alt: "Screenshot 3" },
+      { src: "/kumon-4.png", alt: "Screenshot 4" },
+      { src: "/kumon-5.png", alt: "Screenshot 5" },
+      { src: "/kumon-6.png", alt: "Screenshot 6" },
+    ],
+    description:
+      "During my internship in CurateLab, I assisted in developing a system for one of the company's clients, who handles an educational center. The system was designed to monitor the attendance of students and teachers by scanning their QR codes, and the frontend was developed using React and Tailwind CSS. I was responsible for implementing the frontend components, integrating them with the backend API, and ensuring that the system was responsive and user-friendly.",
+  },
+  {
+    id: "project-2",
+    name: "Bant.ai: Park Monitoring System",
+    buttonLabel: "Bant.ai",
+    url: "https://studio--studio-3133808138-e72bd.us-central1.hosted.app/login",
+    images: [
+      { src: "/bantai-1.png", alt: "Screenshot 1" },
+      { src: "/bantai-2.png", alt: "Screenshot 2" },
+      { src: "/bantai-3.png", alt: "Screenshot 3" },
+      { src: "/bantai-4.png", alt: "Screenshot 4" },
+      { src: "/bantai-5.png", alt: "Screenshot 5" },
+      { src: "/bantai-6.png", alt: "Screenshot 6" },
+      { src: "/bantai-7.png", alt: "Screenshot 7" },
+      { src: "/bantai-8.png", alt: "Screenshot 8" },
+      { src: "/bantai-9.png", alt: "Screenshot 9" },
+      { src: "/bantai-10.png", alt: "Screenshot 10" },
+      { src: "/bantai-11.png", alt: "Screenshot 11" },
+      { src: "/bantai-12.png", alt: "Screenshot 12" },
+    ],
+    description:
+      "Bant.ai is a system we developed for our capstone project in the University of the Cordilleras. Me and my capstone members partnered with the City Environment and Park Management Office (CEPMO) of Baguio City to develop a system that monitors the crowd-level of the public parks in Baguio City. Using Firebase and Typescript, the system is designed to use predictive analytics to determine the crowd-level of the parks based on the number of people entering and exiting the parks, using their visitor logs as historic data. an AI chatbot is also provided to answer park-related questions and provide information about the parks.",
+  },
+  {
+    id: "project-3",
+    name: "Ginhaw.AI: Symptoms Checker",
+    buttonLabel: "Ginhaw.AI",
+    url: "https://www.figma.com/design/wqlHM8RiPA5J98jsQzUztw/Ginhaw-AI?node-id=383-379&t=bPfxMx5r4PN0Lh0V-1",
+    images: [
+      { src: "/ginhaw-1.png", alt: "Screenshot 1" },
+      { src: "/ginhaw-2.png", alt: "Screenshot 2" },
+      { src: "/ginhaw-3.png", alt: "Screenshot 3" },
+      { src: "/ginhaw-4.png", alt: "Screenshot 4" },
+      { src: "/ginhaw-5.png", alt: "Screenshot 5" },
+      { src: "/ginhaw-6.png", alt: "Screenshot 6" },
+      { src: "/ginhaw-7.png", alt: "Screenshot 7" },
+      { src: "/ginhaw-8.png", alt: "Screenshot 8" },
+      { src: "/ginhaw-9.png", alt: "Screenshot 9" },
+      { src: "/ginhaw-10.png", alt: "Screenshot 10" },
+      { src: "/ginhaw-11.png", alt: "Screenshot 11" },
+    ],
+    description:
+      "Ginhaw.AI is a prototype, designed in Figma, to guide patients from symptom check to the right level of care, reducing unnecessary hospital visits and easing overcrowding. It also connects users to nearby clinics, hospitals, or telehealth services based on availability, location, and eligibility, ensuring faster, smarter referrals. The prototype was an entry to the AI.deas for Impact 2025 Hackathon hosted by the Department of Information and Communications Technology in the Cordillera Administrative Region. Out of a hundred entries, Ginhaw.AI made it to the top 10 finalists and was presented last August 28-29, 2025.",
+  },
+];
