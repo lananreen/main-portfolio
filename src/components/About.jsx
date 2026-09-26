@@ -117,7 +117,7 @@ export default function About() {
           />
 
           <p className={`mt-4 max-w-xl text-white/60 drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)] ${step >= 2 ? "animate-fade-slide-in-left" : "opacity-0"}`}>
-            I am currently a student at the University of the Cordilleras taking up 
+            I am a graduate at the University of the Cordilleras with a degree in 
             Bachelor of Science in Information Technology, specializing in Web-Technology. I am interested in 
             front-end development and creating user-centric prototypes to bridge the gap between functional and 
             intuitive web design. 
