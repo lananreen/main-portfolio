@@ -90,9 +90,6 @@ const SpecularOutline = ({
     const fx = fxRef.current;
     if (!container || !fx) return;
 
-    // Skip the effect on touch/mobile devices — it's a mouse-hover effect
-    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
-
     const dpr = window.devicePixelRatio || 1;
     let renderer;
     try {

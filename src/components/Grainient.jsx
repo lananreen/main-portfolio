@@ -158,7 +158,6 @@ const Grainient = ({
     canvas.style.width = '100%';
     canvas.style.height = '100%';
     canvas.style.display = 'block';
-    canvas.style.objectFit = 'cover';
     container.appendChild(canvas);
 
     let program;

@@ -1,74 +1,141 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
+import { Menu } from "lucide-react";
+import JellyRadio from "./JellyRadio";
+import "./Navbar.css";
 
 const NAV_LINKS = [
   { id: "home", label: "Home" },
-  { id: "skills", label: "Skills & Interests" },
+  { id: "about", label: "About Me" },
+  { id: "skills", label: "Tech Stack" },
+  { id: "projects", label: "Projects" },
+  { id: "creative", label: "Creative Works" },
+  { id: "certifications", label: "Certificates" },
+];
+
+const MOBILE_NAV_LINKS = [
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "creative", label: "Creative" },
   { id: "projects", label: "Projects" },
   { id: "certifications", label: "Certifications" },
+  { id: "footer", label: "Contact" },
 ];
 
 export default function Navbar() {
   const lenis = useLenis();
   const [activeSection, setActiveSection] = useState("home");
+  const scrollTarget = useRef(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef(null);
+  const toggleRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+    if (!menuOpen) return;
+    const dismissOutside = (event) => {
+      if (!headerRef.current?.contains(event.target)) setMenuOpen(false);
+    };
+    const dismissOnEscape = (event) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    const media = window.matchMedia("(max-width: 640px)");
+    const dismissOnResize = () => { if (!media.matches) setMenuOpen(false); };
+    document.addEventListener("pointerdown", dismissOutside);
+    document.addEventListener("keydown", dismissOnEscape);
+    media.addEventListener("change", dismissOnResize);
+    return () => {
+      document.removeEventListener("pointerdown", dismissOutside);
+      document.removeEventListener("keydown", dismissOnEscape);
+      media.removeEventListener("change", dismissOnResize);
+    };
+  }, [menuOpen]);
 
-        if (visible.length > 0) {
-          setActiveSection(visible[0].target.id);
+  useEffect(() => {
+    const update = () => {
+      if (scrollTarget.current && lenis?.isScrolling === "smooth") return;
+      scrollTarget.current = null;
+      const middle = window.innerHeight / 2;
+      let active = null;
+
+      const links = window.matchMedia("(max-width: 640px)").matches ? MOBILE_NAV_LINKS : NAV_LINKS;
+      for (const { id } of links) {
+        const el = document.getElementById(id);
+        if (!el) continue;
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= middle && rect.bottom > middle) {
+          active = id;
+          break;
         }
-      },
-      { rootMargin: "-40% 0px -40% 0px" }
-    );
+      }
 
-    NAV_LINKS.forEach(({ id }) => {
+      if (active) setActiveSection(active);
+    };
+
+    const observer = new IntersectionObserver(update, {
+      rootMargin: "-40% 0px -40% 0px"
+    });
+
+    MOBILE_NAV_LINKS.forEach(({ id }) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
 
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [lenis]);
 
-  const handleClick = (id) => (e) => {
-    e.preventDefault();
+  const handleClick = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
-
-    const elTop = el.getBoundingClientRect().top;
-    if (elTop > -10 && elTop < 80) return;
-
-    lenis?.scrollTo(el, { offset: 0 });
+    setActiveSection(id);
+    if (lenis) {
+      scrollTarget.current = id;
+      lenis.scrollTo(el, {
+        offset: 0,
+        onComplete: () => { scrollTarget.current = null; },
+      });
+    } else {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
-  const activeLabel = NAV_LINKS.find((l) => l.id === activeSection)?.label;
-
   return (
-    <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-auto max-w-3xl rounded-2xl bg-white/5 backdrop-blur-2xl border border-white/10 flex items-center justify-center px-4 py-3 md:w-[calc(100%-2rem)] md:justify-between md:px-6 md:py-4">
-
-      <nav className="hidden md:flex flex-wrap justify-center gap-3">
-        {NAV_LINKS.map((link) => (
-          <button
-            key={link.id}
-            type="button"
-            onClick={handleClick(link.id)}
-            className="rounded-full bg-white px-4 py-2 text-sm font-medium text-gray-900 shadow-md transition-all hover:scale-110 hover:bg-gray-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-          >
-            {link.label}
-          </button>
-        ))}
+    <header ref={headerRef} className="portfolio-navbar">
+      <nav className="portfolio-navbar__scroll" aria-label="Main navigation">
+        <JellyRadio items={NAV_LINKS} value={activeSection} onChange={handleClick} />
       </nav>
-
-      <span
-        key={activeSection}
-        className="flex-1 md:flex-none text-center md:text-left animate-fade-slide-in-down text-sm md:text-base font-medium text-white/80"
-      >
-        {activeLabel}
-      </span>
+      <nav className="portfolio-navbar__mobile" aria-label="Mobile navigation" onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false);
+      }}>
+        <button ref={toggleRef} type="button" className="portfolio-navbar__pill" aria-expanded={menuOpen} aria-controls="mobile-navigation" aria-label={`${MOBILE_NAV_LINKS.find(({ id }) => id === activeSection)?.label ?? "Home"}: toggle navigation`} onClick={() => setMenuOpen((open) => !open)}>
+          <span>{MOBILE_NAV_LINKS.find(({ id }) => id === activeSection)?.label ?? "Home"}</span>
+          <Menu size={19} aria-hidden="true" />
+        </button>
+        <div id="mobile-navigation" className={`portfolio-navbar__folder${menuOpen ? " portfolio-navbar__folder--open" : ""}`} inert={!menuOpen} aria-hidden={!menuOpen} data-lenis-prevent>
+          <ul className="portfolio-navbar__cards">
+            {MOBILE_NAV_LINKS.map(({ id, label }, index) => (
+              <li key={id} style={{ "--card-rotation": `${index % 2 === 0 ? -1.4 : 1.1}deg` }}>
+                <a href={`#${id}`} className="portfolio-navbar__card" aria-current={activeSection === id ? "location" : undefined} onClick={(event) => {
+                  event.preventDefault();
+                  handleClick(id);
+                  setMenuOpen(false);
+                  toggleRef.current?.focus();
+                }}>{label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
     </header>
   );
 }
