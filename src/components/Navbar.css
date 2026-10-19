@@ -20,7 +20,7 @@
 .portfolio-navbar__mobile { display: none; }
 
 @media (max-width: 640px) {
-  .portfolio-navbar { top: 8px; left: auto; right: 16px; transform: none; }
+  .portfolio-navbar { top: calc(8px + env(safe-area-inset-top, 0px)); left: auto; right: calc(16px + env(safe-area-inset-right, 0px)); transform: none; }
   .portfolio-navbar__scroll { display: none; }
   .portfolio-navbar__mobile { display: flex; justify-content: center; color: #3a3428; }
   .portfolio-navbar__pill {
@@ -75,7 +75,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-height: calc(100dvh - 130px);
+    max-height: calc(100dvh - 130px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
     margin: 0;
     padding: 3px;
     overflow-y: auto;

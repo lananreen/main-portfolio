@@ -14,7 +14,7 @@
 .certificates__folder-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; margin-bottom: 30px; }
 .certificates__hint { grid-column: 2; display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0; color: #36556e; font-size: .875rem; text-align: center; }
 .certificates__hint svg { flex-shrink: 0; }
-.certificates__tab { position: relative; z-index: 1; width: 180px; height: 48px; border-radius: 20px 20px 0 0; background: var(--certificate-folder); }
+.certificates__tab { position: relative; z-index: 1; width: 180px; height: 50px; margin-bottom: -2px; border-radius: 20px 20px 0 0; background: var(--certificate-folder); }
 .certificates__folder { position: relative; padding: 24px 36px 44px; border-radius: 0 30px 30px 30px; background: var(--certificate-folder); box-shadow: 0 18px 32px rgb(58 52 40 / 16%); }
 .certificates__count { flex-shrink: 0; margin: 0; text-align: right; color: #36556e; font-size: 1rem; font-weight: 700; }
 .certificates__list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px 24px; padding: 0; margin: 0; list-style: none; }
@@ -55,12 +55,15 @@
 @media (max-width: 640px) {
   .certificates { padding: 60px 16px 88px; }
   .certificates__hint { font-size: .8125rem; }
-  .certificates__tab { width: 100px; height: 36px; border-radius: 18px 18px 0 0; }
+  .certificates__tab { width: 100px; height: 38px; border-radius: 18px 18px 0 0; }
   .certificates__folder { padding: 20px 20px 48px; border-radius: 0 22px 22px 22px; }
   .certificates__folder-header { grid-template-columns: minmax(0, 1fr); gap: 12px; margin-bottom: 24px; }
   .certificates__hint { grid-column: 1; }
   .certificates__count { font-size: .875rem; }
   .certificates__list { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  /* The long mobile list is ready immediately, without nested or staggered reveals. */
+  .certificates .certificates__collection[data-reveal],
+  .certificates .certificates__list > li[data-reveal] { animation: none; opacity: 1; scale: none; translate: none; }
   .certificates__label, .certificates__next { min-height: 104px; padding: 20px 24px; }
   .certificates__issuer { font-size: .875rem; }
   .certificates__stamp { width: 104px; height: 104px; right: -4px; bottom: -36px; font-size: .875rem; }

@@ -95,3 +95,44 @@ h1, h2, h3, h4, h5, h6 {
   font-optical-sizing: auto;
   font-variation-settings: "wdth" 100;
 }
+
+@media (max-width: 1024px) {
+  /* Paint the browser canvas too, including safe areas and rubber-band overscroll. */
+  html,
+  body,
+  #root,
+  #root main {
+    background-color: #fff8e2;
+  }
+
+  #root {
+    min-height: 100svh;
+  }
+
+  /* Keep the previous background out of mobile overscroll and section seams. */
+  .portfolio-background {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Overscan the blur beyond the viewport so its clipped top edge cannot expose content. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -16px -16px auto;
+    z-index: 40;
+    height: calc(env(safe-area-inset-top, 0px) + 112px);
+    pointer-events: none;
+    background: linear-gradient(to bottom,
+      #fff8e2 0px,
+      #fff8e2 calc(env(safe-area-inset-top, 0px) + 28px),
+      rgb(255 248 226 / 85%) calc(env(safe-area-inset-top, 0px) + 44px),
+      rgb(255 248 226 / 35%) calc(env(safe-area-inset-top, 0px) + 72px),
+      rgb(255 248 226 / 0%) 100%);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    -webkit-mask-image: linear-gradient(to bottom, #000 0px, #000 calc(env(safe-area-inset-top, 0px) + 28px), transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0px, #000 calc(env(safe-area-inset-top, 0px) + 28px), transparent 100%);
+  }
+}

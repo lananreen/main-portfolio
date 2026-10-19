@@ -17,7 +17,7 @@ export default function App() {
   return (
     <ReactLenis root options={{ autoRaf: true }}>
       <div className="relative">
-        <div style={{ position: 'fixed', inset: 0, zIndex: -10 }}>
+        <div className="portfolio-background" style={{ position: 'fixed', inset: 0, zIndex: -10 }}>
           <div style={{ width: '100%', height: '100%' }}>
             <Grainient
               color1="#a1b6db"
