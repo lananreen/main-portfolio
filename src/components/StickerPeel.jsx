@@ -683,6 +683,7 @@ const StickerPeel = ({
       gl.clearDepth(1);
       gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
       if (!sticker.ready) return;
+      root.dataset.ready = 'true';
       const w = s.width;
       const h = height();
       const dx = -Math.sin(state.dir);
@@ -993,6 +994,7 @@ const StickerPeel = ({
 
     return () => {
       alive = false;
+      delete root.dataset.ready;
       cancelAnimationFrame(raf);
       wakeRef.current = null;
       resizeObserver.disconnect();

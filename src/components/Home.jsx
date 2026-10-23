@@ -26,6 +26,16 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    const area = stickerAreaRef.current;
+    if (!area || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      area.classList.toggle("is-visible", entry.isIntersecting);
+    }, { threshold: 0.15 });
+    observer.observe(area);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const query = window.matchMedia("(max-width: 640px)");
     const updateMobile = (event) => setMobile(event.matches);
     query.addEventListener("change", updateMobile);
@@ -76,6 +86,7 @@ export default function Home() {
               finish="matte"
               lightingIntensity={0}
               followPointer={false}
+              intro={false}
               initialPosition={{
                 x: -stickerArea.width / 2 + 6 + stickerWidth * 0.63,
                 y: stickerArea.height / 2 - 6 - stickerWidth * 0.75,
